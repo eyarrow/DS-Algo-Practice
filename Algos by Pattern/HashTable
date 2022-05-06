@@ -26,3 +26,26 @@ def valid_parentheses(s):
         return True
     else:
         return False
+        
+        
+# Problem Statement: Determine if two strings are isomorphic. Ex: "all" and "egg" are isomorphic because a always maps to e and l always maps to g
+# O(n) time complexity where n is the size of the strings
+def is_isomorphic(str_1, str_2):
+    mapped = {}
+    used = set()
+
+    for i in range(0, len(str_2)):
+        if len(str_1) != len(str_2):
+            return False
+        a_char = str_1[i]
+        b_char = str_2[i]
+        if b_char in used:
+            if a_char not in mapped:
+                return False
+        else:
+            if a_char in mapped:
+                if mapped[a_char] != b_char:
+                   return False
+        mapped[a_char] = b_char
+        used.add(b_char)
+    return True
