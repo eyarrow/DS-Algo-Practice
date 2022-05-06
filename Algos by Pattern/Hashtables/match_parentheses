@@ -1,0 +1,29 @@
+# Some algorithms that can use a Hashtable to optimize
+
+from collections import deque
+
+# Problem statement: Given a string of parentheses, determine if the string is valid. EX: "{[]}" is valid but "[}" is not
+# Solution uses a stack to optimize
+# O(n) time complexity where n is the length of the array. 
+def valid_parentheses(s):
+    mapping = {")": "(",
+               "]": "[",
+               "}": "{",
+               }
+               
+    matches = deque()
+    for character in s:
+        if character not in mapping:
+            matches.append(character)
+        else:
+            if len(matches) > 0:
+                open_element = matches.pop()
+                if open_element != mapping[character]:
+                    return False
+            else:
+                return False
+    if len(matches) == 0:
+        return True
+    else:
+        return False
+
