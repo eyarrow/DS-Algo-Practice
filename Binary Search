@@ -130,6 +130,23 @@ left, right = 0, len(arr) - 1
             right = mid - 1
             res = mid
     return res
+    
+    
+#    A mountain array is defined as an array that:
+#    - has at least 3 elements
+#    - has an element with the largest value called "peak", with index k. The array elements monotonically increase from the first element to A[k], and then monotonically decreases from A[k + 1] to the last element of the array. Thus creating a "mountain" of numbers.
+# Problem Statement:Find the index of the peak element. Assume there is only one peak element.
+def peak_of_mountain_array(arr):
+    boundary = 0
+    left, right = 0, len(arr)-1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] > arr[mid+1]:
+            boundary = mid
+            right = mid-1
+        else:
+            left = mid + 1
+    return boundary
 
 
 
