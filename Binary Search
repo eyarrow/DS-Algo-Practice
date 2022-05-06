@@ -147,6 +147,37 @@ def peak_of_mountain_array(arr):
         else:
             left = mid + 1
     return boundary
+    
+    
+# Problem Description: https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+def min_max_weight(weights, days):
+    def possible(weight_limit):
+        current_days = 1
+        truck_weight = 0
+        for package in weights:
+            if package + truck_weight > weight_limit:
+                truck_weight = package
+                current_days += 1
+                if current_days > days:
+                    return False
+            else:
+                truck_weight += package
+        return True
+
+
+    lowest_possible = max(weights)
+    highest_possible = sum(weights)
+    answer = highest_possible
+
+    while lowest_possible <= highest_possible:
+        mid = (lowest_possible + highest_possible) // 2
+        if possible(mid):
+            if mid < answer: answer = mid
+            highest_possible = mid -1
+        else:
+            lowest_possible = mid + 1
+    return answer
+
 
 
 
