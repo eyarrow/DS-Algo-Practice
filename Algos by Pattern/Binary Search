@@ -1,0 +1,132 @@
+# This is a collection of algorithms that use a Binary Search pattern
+
+# Vanilla Binary Search using recursion. Assumptions: List is sorted in ascending order. 
+# Returns true if found, False if not found
+# O(n) time complexity, where n is the number of elements in the array
+def binary_search(list_of_vals, target):
+    list_length = len(list_of_vals)
+    midpoint = list_length // 2
+
+    if not list_of_vals:
+        return False
+    # Base case
+    if list_length == 1:
+        if list_of_vals[0] == target:
+            return True
+        else:
+            return False
+
+    left_list = list_of_vals[0:midpoint]
+    right_list = list_of_vals[midpoint:]
+
+    if target < list_of_vals[midpoint]:
+        return binary_search(left_list, target)
+    else:
+        return binary_search(right_list, target)
+        
+        
+# Binary search, iterative. Assumptions: List is sorted in ascending order and not empty. 
+# Returns the index number of the found element if found, -1 if it is not found
+# O(log n) time complexity, where n is number of elements in the array
+def binary_search_return_index(arr, target):
+    left, right = 0, len(arr)-1
+    while left <= right:
+        mid = (left + right) // 2  
+        if arr[mid] == target:
+            return mid
+        elif arr[left] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1  
+    
+    
+# Problem Statement: All false values are on the left. All true on the right. Find the first occurance of a true value
+# ex: Input: arr = [false, false, true, true, true], answer is 2. True's first index is at pos 2
+# O(log n) time complexity when n is number of elements in the array
+def boundry_search_binary(arr):
+    if all(arr):
+        return 0
+    elif not any(arr):
+        return -1
+
+    boundry_number = -1
+    left, right = 0, len(arr)-1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid]:
+            right = mid - 1
+            boundry_number = mid
+        elif not arr[mid]:
+            left = mid + 1
+    return boundry_number
+    
+    
+# Problem Statement: Given an array of integers sorted in increasing order and a target, find the index of the first element in the array
+# that is larger than or equal to the target. Assume that it is guaranteed to find a satisfying number.
+# O(log n) time complexity where n is the number of elements in the array
+def first_not_smaller(arr, target):
+    boundry = -1
+    left, right = 0, len(arr)-1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] >= target:
+            boundry = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+    return boundry
+    
+    
+    
+# Problem Statement: Given a sorted array of integers and a target integer, find the first occurrence of the target and return its index.
+# Return -1 if the target is not in the array.
+# O(log n) time complexity
+def find_first_occurance(arr, target):
+    if not arr:
+        return -1
+    if arr[len(arr)-1] < target:
+        return -1
+    bound = -1
+    left, right = 0, len(arr)-1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] >= target:
+            right = mid - 1
+        if arr[mid] < target:
+            left = mid + 1
+        if arr[left] == target:
+            return left
+    return -1
+    
+    
+# Problem Description: Given an integer, find its square root without using the built-in square root function.
+# Only return the integer part (truncate the decimals).
+# O(log n) time complexity where n is the provided integer
+def return_sqrt(num):
+    left, right = 0, num
+    result = 0
+    while left <= right:
+        mid = (left + right) // 2
+        if mid*mid <= num:
+            result = mid
+            left = mid + 1
+        else:
+            right = mid - 1
+    return result
+    
+    
+    
+# Problem Description: A sorted array of unique integers was rotated at an unknown pivot. For example, [10, 20, 30, 40, 50] becomes
+# [30, 40, 50, 10, 20]. Find the index of the minimum element in this array. All the numbers are unique.    
+# O(log n) time complexity where n is the number of elements in the array
+left, right = 0, len(arr) - 1
+    res = 0
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] > arr[-1]:
+            left = mid + 1
+        elif arr[mid] <= arr[-1]:
+            right = mid - 1
+            res = mid
+    return res
