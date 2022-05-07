@@ -130,3 +130,90 @@ left, right = 0, len(arr) - 1
             right = mid - 1
             res = mid
     return res
+    
+    
+#    A mountain array is defined as an array that:
+#    - has at least 3 elements
+#    - has an element with the largest value called "peak", with index k. The array elements monotonically increase from the first element to A[k], and then monotonically decreases from A[k + 1] to the last element of the array. Thus creating a "mountain" of numbers.
+# Problem Statement:Find the index of the peak element. Assume there is only one peak element.
+def peak_of_mountain_array(arr):
+    boundary = 0
+    left, right = 0, len(arr)-1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] > arr[mid+1]:
+            boundary = mid
+            right = mid-1
+        else:
+            left = mid + 1
+    return boundary
+
+
+# Problem Description: https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+def min_max_weight(weights, days):
+    def possible(weight_limit):
+        current_days = 1
+        truck_weight = 0
+        for package in weights:
+            if package + truck_weight > weight_limit:
+                truck_weight = package
+                current_days += 1
+                if current_days > days:
+                    return False
+            else:
+                truck_weight += package
+        return True
+
+
+    lowest_possible = max(weights)
+    highest_possible = sum(weights)
+    answer = highest_possible
+
+    while lowest_possible <= highest_possible:
+        mid = (lowest_possible + highest_possible) // 2
+        if possible(mid):
+            if mid < answer: answer = mid
+            highest_possible = mid -1
+        else:
+            lowest_possible = mid + 1
+    return answer
+
+
+# Problem Description: You've begun working in the one and only Umbristan. As part of your job working for the
+# government you are asked to organize newspapers. Each morning your fellow coworkers will dilligently read through
+# the newspapers carefully examining its contents. It is your job to organize the newspapers into piles and hand them
+# out to your coworkers to read through. Each newspaper is assigned a time based on how much time it would take to read
+# through its contents. The newspapers are carefully layed out in a line in a particular order that must not be broken
+# when assigning the newspapers. That is you cannot pick and choose newspapers to make a pile to assign to a co-worker
+# to read through. Instead you must take a particular subsection of the line of newspapers, make a pile and give that
+# to a co-worker.
+#
+# What is the minimum amount of time it would take to have your coworkers go through all the newspapers?
+# Solution: Combines a greedy algorithm with a binary search pattern
+# Time Complexity: O(log n) where n is the number of newspapers
+def newspapers_split(newspapers, coworkers):
+    def possible(limit):
+        num_employ = 1
+        time_spent = 0
+        for i in newspapers:
+            if i + time_spent > limit:
+                time_spent = i
+                num_employ += 1
+                if num_employ > coworkers:
+                    return False
+            else:
+                time_spent += i
+        return True
+
+    min_time = max(newspapers)
+    max_time = sum(newspapers)
+    answer = max_time
+
+    while min_time <= max_time:
+        mid = (min_time + max_time) // 2
+        if possible(mid):
+            if mid < answer: answer = mid
+            max_time = mid - 1
+        else:
+            min_time = mid + 1
+    return answer
