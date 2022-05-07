@@ -1,2 +1,54 @@
 # Problems that utilize a Depth First Search Pattern
 
+# Depth First traversal search algorithm
+def dfs(root, target):
+    if root is None:
+        return None
+    if root.val == target:
+        return root
+
+    left = dfs(root.left, target)
+    if left is None:
+        return left
+
+    return dfs(root.right, target)
+
+# Template for dfs on a tree
+#def dfs(node, state):
+#    if node is None:
+#        ...
+#       return None
+#    left = dfs(node.left, state)
+#    right = dfs(node.right, state)
+
+
+# Max depth of a binary tree is the longest root-to-leaf path. Given a binary tree, find its max depth.
+# Note: Depth is determined by the number of vertices between nodes
+# Time Complexity: O(n)
+def tree_max_depth(node) -> int:
+    if not node:
+        return 0
+
+    left_length = tree_max_depth(node.left) + 1
+    right_length = tree_max_depth(node.right) + 1
+    return max(left_length, right_length)
+
+
+# In a binary tree, we define a node "visible" when no node on the root-to-itself path (inclusive) has a greater value.
+# The root is always "visible" since there are no other nodes between the root and itself. Given a binary tree,
+# count the number of "visible" nodes.
+def visible_tree_node(root):
+    def dfs(root, max_sofar):
+        if not root:
+            return 0
+
+        total = 0
+        if root.val >= max_sofar:
+            total += 1
+
+        total += dfs(root.left, max(max_sofar, root.val)) 
+        total += dfs(root.right, max(max_sofar, root.val))
+
+        return total
+
+    return dfs(root, -float('inf'))
