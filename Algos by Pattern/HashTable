@@ -4,6 +4,7 @@ from collections import deque
 
 # Problem statement: Given a string of parentheses, determine if the string is valid. EX: "{[]}" is valid but "[}" is not
 # Solution uses a stack to optimize
+# Stategy: Use a stack to keep track of the open parens
 # O(n) time complexity where n is the length of the array. 
 def valid_parentheses(s):
     mapping = {")": "(",
@@ -29,6 +30,7 @@ def valid_parentheses(s):
         
         
 # Problem Statement: Determine if two strings are isomorphic. Ex: "all" and "egg" are isomorphic because a always maps to e and l always maps to g
+# Strategy: Used a hash table and a set 
 # O(n) time complexity where n is the size of the strings
 def is_isomorphic(str_1, str_2):
     mapped = {}
