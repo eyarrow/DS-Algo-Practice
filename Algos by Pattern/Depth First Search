@@ -52,3 +52,27 @@ def visible_tree_node(root):
         return total
 
     return dfs(root, -float('inf'))
+    
+    
+# A balanced binary tree is defined as a tree such that either it is an empty tree, or
+# both its subtree are balanced and has a height difference of at most 1.
+# In that case, given a binary tree, determine if it's balanced.
+# Return a boolean that returns if the tree is balanced
+def is_balanced(tree):
+    def dfs(tree):
+        if tree is None:
+            return 0
+
+        left_length = dfs(tree.left)
+        right_length = dfs(tree.right)
+
+        if left_length == -1 or right_length == -1:
+            return -1
+
+        if abs(left_length - right_length) > 1:
+            return -1
+        return max(left_length, right_length) + 1
+
+    if dfs(tree) != -1:
+        return True
+
