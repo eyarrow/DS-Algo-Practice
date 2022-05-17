@@ -169,6 +169,26 @@ def valid_bst(root):
     return dfs(root, -inf, inf)
 
 
+# Given the root node of a valid BST and a value to insert into the tree, return a new root 
+# node representing the valid BST with the addition of the new item. If the new item already 
+# exists in the binary search tree, do not insert anything.
+# Time complexity (worst case) O(n)
+def insert_bst(bst, val):
+    def insert(bst, val):
+        if bst is None:
+            return Node(val) 
+        if bst.val < val:
+            bst.right = insert(bst.right, val)
+        elif bst.val > val:
+            bst.left = insert(bst.left, val)
+        return bst
+    return insert(bst, val)
+
+
+
+        
+
+
 
 
 
