@@ -108,4 +108,68 @@ def deserialize(s):
     return cur
   return dfs(iter(s.split()))
 
+
+# Lowest common ancestor (LCA) of two nodes v and w in a tree is the lowest 
+# (i.e. deepest) node that has both v and w as descendants. We also define 
+# each node to be a descendant of itself (so if v has a direct connection 
+# from w, w is the lowest common ancestor).
+# Given two nodes of a binary tree, find their lowest common ancestor.
+
+
+
+
+# Binary Search Trees
+# All elements on the left are less than root, elements on right are greater than 
+# Time complexity of a binary search is O(h) where h is the height of the tree
+
+# Binary Search Tree implmentation:
+class Node:
+  def __init__(self, val, left=None, right=None):
+    self.val = val
+    self.left = left 
+    self.right = right
+
+def find(tree, val):
+  if tree is None:  
+    return False
+  if tree == val:
+    return true
+  elif tree < val:
+    return find(tree.left, val)
+  else:
+    return find(tree.right, val)
+
+def insert(tree, val):
+  if tree is None:
+    tree = Node(val)
+
+  if val < tree:
+    tree.right = insert(tree.right, val)
+  else:
+    tree.left = insert(tree.left, val)
+  return tree
+
+
+# A binary search tree is a binary tree with the property that any 
+# of its node's value is greater than or equal to any node in its left 
+# subtree and less than or equal to any node's value in its right subtree.
+# Given a binary tree, determine whether it is a binary search tree.
+# Time complexity: O(n) where n is number of nodes
+
+from math import inf
+
+def valid_bst(root):
+    def dfs(root, min_val, max_val):
+        if root is None:
+            return True
+        if not(min_val <= root.val <= max_val):
+            return False
+        
+        return dfs(root.left, min_val, root.val) and dfs(root.right, root.val, max_val)
+    return dfs(root, -inf, inf)
+
+
+
+
+
     
