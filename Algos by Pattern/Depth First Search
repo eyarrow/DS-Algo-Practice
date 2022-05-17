@@ -185,6 +185,15 @@ def insert_bst(bst, val):
     return insert(bst, val)
 
 
+# Given a binary tree, invert it and return the new value. 
+# You may invert it in-place.
+# To "invert" a binary tree, switch the left subtree and the right subtree, 
+# and invert them both. Inverting an empty tree does nothing.
+# Time Complexity: O(n) where n is number of nodes in the tree
+def invert_binary_tree(tree: Node) -> Node:
+    if tree is None: return None
+    return Node(tree.val, invert_binary_tree(tree.right), invert_binary_tree(tree.left))
+
 
         
 
