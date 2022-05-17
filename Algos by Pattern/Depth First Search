@@ -37,6 +37,7 @@ def tree_max_depth(node) -> int:
 # In a binary tree, we define a node "visible" when no node on the root-to-itself path (inclusive) has a greater value.
 # The root is always "visible" since there are no other nodes between the root and itself. Given a binary tree,
 # count the number of "visible" nodes.
+# Time Complexity: O(n)
 def visible_tree_node(root):
     def dfs(root, max_sofar):
         if not root:
@@ -58,6 +59,7 @@ def visible_tree_node(root):
 # both its subtree are balanced and has a height difference of at most 1.
 # In that case, given a binary tree, determine if it's balanced.
 # Return a boolean that returns if the tree is balanced
+# Time Complexity: O(n) where n is the number of nodes in the tree
 def is_balanced(tree):
     def dfs(tree):
         if tree is None:
@@ -76,3 +78,34 @@ def is_balanced(tree):
     if dfs(tree) != -1:
         return True
 
+
+# Given a binary tree, write a serialize function that converts the tree 
+# into a string and a deserialize function that converts a string to a binary tree. 
+# You may serialize the tree into any string representation you want as long as it 
+# can be deseralized.
+def serialize(root):
+    nodes_list = []
+    def dfs(root):
+        if not root:
+          nodes_list.append('x')
+          return
+        else:
+          nodes_list.append(root)
+
+        dfs(root.left)
+        dfs(root.right)
+  dfs(root)
+  return ''.join(nodes_list)
+        
+# This approach utilizes an iterator to tokenize the input string
+def deserialize(s):
+  def dfs(nodes):
+    val = next(nodes)
+    if not val or val == 'x': return
+    cur = Node(int(val))
+    cur.left = dfs(nodes)
+    cur.right = dfs(nodes)
+    return cur
+  return dfs(iter(s.split()))
+
+    
