@@ -197,7 +197,43 @@ def invert_binary_tree(tree: Node) -> Node:
 
         
 
-
+# https://leetcode.com/problems/binary-tree-paths/
+# Given the root of a binary tree, return all root-to-leaf paths in any order.
+# A leaf is a node with no children.
+# Definition for a binary tree node.
+# time complexity and space complexity = O(n)
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        def return_path(node, path=[], res=[]):
+            """
+            @param: root 
+            @return: complete path as a string in a node->node
+            format
+            """
+            if not node:
+                return 
+            
+            if not node.left  and not node.right:
+                path.append(str(node.val))
+                res.append('->'.join(path[:]))
+                return res
+                           
+            path.append(str(node.val))
+            
+            if node.left:
+                return_path(node.left, path)
+                path.pop()
+            if node.right:
+                return_path(node.right, path)
+                path.pop()
+            
+            return res              
+        return return_path(root)   
 
 
 
