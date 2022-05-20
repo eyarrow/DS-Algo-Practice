@@ -1,0 +1,30 @@
+# Remove duplicates from a linked list. All are in ascending order, and there is at 
+# least one node.
+# https://www.algoexpert.io/questions/Remove%20Duplicates%20From%20Linked%20List
+# Time Complexity: O(n)
+
+# This is an input class. Do not edit.
+class LinkedList:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def removeDuplicatesFromLinkedList(linkedList):
+	def returnNextDistinctNode(currentNode, val):
+		"""
+		@param: current node in the linked list
+		@return: next distinct node in the linked list
+		"""
+		currentValue = val
+		while currentNode.next is not None:
+			currentNode = currentNode.next
+			if currentNode.value != currentValue:
+				return currentNode
+		return None
+	
+	currentNode = linkedList
+	while currentNode is not None:
+		currentNode.next = returnNextDistinctNode(currentNode, currentNode.value)
+		currentNode = currentNode.next
+	return linkedList
