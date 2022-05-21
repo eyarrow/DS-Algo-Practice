@@ -11,23 +11,20 @@ class LinkedList:
 
 
 def removeDuplicatesFromLinkedList(linkedList):
-	def returnNextDistinctNode(currentNode, val):
-		"""
-		@param: current node in the linked list
-		@return: next distinct node in the linked list
-		"""
-		currentValue = val
-		while currentNode.next is not None:
-			currentNode = currentNode.next
-			if currentNode.value != currentValue:
-				return currentNode
-		return None
+    def returnNextUniqueValue(node, curValue):
+		  cur = node
+		  while cur.next:
+			  cur = cur.next
+			  if cur.value != curValue:
+				  return cur
+		  return None
 	
 	currentNode = linkedList
-	while currentNode is not None:
-		currentNode.next = returnNextDistinctNode(currentNode, currentNode.value)
+	while currentNode:
+		currentNode.next = returnNextUniqueValue(currentNode, currentNode.value)
 		currentNode = currentNode.next
 	return linkedList
+
 
 
 # Remove Kth node from end of list
@@ -59,3 +56,65 @@ def removeKthNodeFromEnd(head, k):
 		currentNode = currentNode.next
 	
 	prevNode.next = currentNode.next
+
+
+# Sum of Linked list
+# https://www.algoexpert.io/questions/Sum%20of%20Linked%20Lists
+# Time and space complexity is O(max(n,m)) where n and m are the length of the lists
+class LinkedList:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def sumOfLinkedLists(linkedListOne, linkedListTwo):
+    resList = LinkedList(0)
+	currentNode = resList
+	carry = 0
+	
+	nodeListOne = linkedListOne
+	nodeListTwo = linkedListTwo
+	
+	while nodeListOne is not None or nodeListTwo is not None or carry!= 0:
+		valueOne = nodeListOne.value if nodeListOne is not None else 0
+		valueTwo = nodeListTwo.value if nodeListTwo is not None else 0
+		sumOfValues = valueOne + valueTwo + carry
+		
+		newSum = sumOfValues % 10
+		carry = sumOfValues // 10
+		
+		newNode = LinkedList(newSum)
+		currentNode.next = newNode
+		currentNode = newNode
+
+		nodeListOne = nodeListOne.next if nodeListOne is not None else None
+		nodeListTwo = nodeListTwo.next if nodeListTwo is not None else None
+		
+	return resList.next
+
+
+# Find the loop in the linked list
+# https://www.algoexpert.io/questions/Find%20Loop
+# Time complexity: O(n), space O(1)
+class LinkedList:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def findLoop(head):
+	firstPointer = head.next
+	secondPointer = head.next.next
+	
+	while firstPointer != secondPointer:
+		firstPointer = firstPointer.next
+		secondPointer = secondPointer.next.next
+	
+	firstPointer = head
+	
+	while firstPointer != secondPointer:
+		firstPointer = firstPointer.next
+		secondPointer = secondPointer.next
+	
+	return firstPointer
+		
