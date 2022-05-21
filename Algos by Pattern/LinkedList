@@ -28,3 +28,34 @@ def removeDuplicatesFromLinkedList(linkedList):
 		currentNode.next = returnNextDistinctNode(currentNode, currentNode.value)
 		currentNode = currentNode.next
 	return linkedList
+
+
+# Remove Kth node from end of list
+# https://www.algoexpert.io/questions/Remove%20Kth%20Node%20From%20End
+# Time Complexity O(n), space O(n)
+def removeKthNodeFromEnd(head, k):
+    '''
+	@param head, pointer to beginning of list. head pointer can be updated by not changed  
+	@param k, the index of the node that should be removed
+	@return none
+	'''
+	maxK = 0
+	currentNode =  head
+	while currentNode:
+		currentNode = currentNode.next
+		maxK += 1
+		
+	targetIndex = maxK - k
+	
+	if targetIndex == 0:
+		secondItem = head.next
+		head.value = secondItem.value
+		head.next = secondItem.next
+		return
+	
+	currentNode = prevNode = head
+	for _ in range(0, targetIndex):
+		prevNode = currentNode
+		currentNode = currentNode.next
+	
+	prevNode.next = currentNode.next
