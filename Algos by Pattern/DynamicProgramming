@@ -1,0 +1,44 @@
+# Memoization
+
+# Memoization Recipe
+# 1. Make it work:
+#    * Visualize it as a tree (shrinking size of problem)
+#    * Implement tree using recursion (brute force sol)
+#      - Use leaves as the base case
+#    * test the brute force solution for correctness
+# 2. Make it efficient:
+#    * add a memo object
+#    * add a base case to return memo values
+#    * store values into the memo
+
+# Say you are a traveler on a 2d grid. You begin in the top
+# left corner and your goal is to travel to the bottom-right
+# corner. You may only move down or right. 
+# In how many ways can you travel to the goal on the grid
+# with dimensions m*n
+
+# a recursive basic solution
+# Time complexity is O(2^n+m)
+# Space complexity is height of tree, or O(n+m)
+def gridTraveler(m, n):
+  if m==1 and n==1:
+    return 1
+  if m==0 or n==0:
+    return 0
+  return gridTraveler(m-1, n) + gridTraveler(m, n-1)
+
+
+
+# A memoized version using dynamic programming
+# time complexity: O(m*n) 
+# space complexity: O(m + n)
+def gridTravelerMemo(m, n, memo={}):
+  if (m, n) in memo:
+    return memo[(m, n)]
+  if m==1 and n==1:
+    return 1
+  if m==0 or n==0:
+    return 0
+  memo[(m, n)] = gridTravelerMemo(m-1, n, memo) + gridTravelerMemo(m, n-1, memo)
+  return memo[(m, n)]
+

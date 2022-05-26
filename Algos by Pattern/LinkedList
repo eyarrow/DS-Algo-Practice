@@ -117,4 +117,30 @@ def findLoop(head):
 		secondPointer = secondPointer.next
 	
 	return firstPointer
+
+
+# Reverse a linkedList in place
+# https://www.algoexpert.io/questions/Reverse%20Linked%20List
+# Time complexity: O(n), space O(1)
+class LinkedList:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def reverseLinkedList(head):
+    if head.next is None:
+		return head
+	
+	prev, cur = None, head
+	
+	while cur:
+		if cur.next:
+			temp = cur.next
+			cur.next = prev
+			prev = cur
+			cur = temp
+		else:
+			cur.next = prev
+			return cur
 		
