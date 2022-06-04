@@ -51,3 +51,31 @@ def is_isomorphic(str_1, str_2):
         mapped[a_char] = b_char
         used.add(b_char)
     return True
+
+
+# Given an array of characters return the first recurring character
+# O(n) slightly better, hash table has O(1) retrieval
+def returnFirstRecurring(arr):
+  hasOccured = {}
+  for num in arr:
+    if num in hasOccured:
+      return num
+    else:
+      hasOccured[num] = True
+  return None
+
+
+
+# Alernate solution can just use a list
+# O(n) is embedded for O(n^2)
+def returnFirstRecurring2(arr):
+  hasOccured = []
+  for num in arr:
+    if num in hasOccured:
+      return num
+    else:
+      hasOccured.append(num)
+  return None
+
+array = [1, 2, 3, 2]
+print(returnFirstRecurring2(array))
