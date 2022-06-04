@@ -55,6 +55,7 @@ def is_isomorphic(str_1, str_2):
 
 # Given an array of characters return the first recurring character
 # O(n) slightly better, hash table has O(1) retrieval
+# Space is O(n)
 def returnFirstRecurring(arr):
   hasOccured = {}
   for num in arr:
